@@ -16,7 +16,7 @@ namespace TP4
                 {
                     Console.WriteLine("Ingrese una opcion valida");
                 }
-                if (!numero.Equals(1) && !numero.Equals(9))
+                if (!numero.Equals(1) && !numero.Equals(9) && !numero.Equals(2))
                 {
                     Console.WriteLine("Favor de ingresar una opcion valida");
                 }
@@ -36,7 +36,10 @@ namespace TP4
                 {
                     Console.WriteLine("Favor de ingresar un numero");
                 }
+                if (numero < 0)
+                    Console.WriteLine("No puede ingresar un numero negativo.");
                 else validar = true;
+                
 
             } while (!validar);
             return numero;
@@ -64,5 +67,6 @@ namespace TP4
             } while (!ok);
             return fecha;
         }
+        
     }
 }

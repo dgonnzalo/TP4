@@ -8,7 +8,7 @@ namespace TP4
     static class CursoMateria
     {
         public static readonly Dictionary<int, string> CursoMateriasOferta;
-
+        const string rutaCursoMateria = @"C:\Users\mateo\source\repos\CAI\TP4\TP4\Materias.csv";
         static CursoMateria()
         {
             //Formato
@@ -29,7 +29,7 @@ namespace TP4
                 }
 
             }
-            else Console.WriteLine("No se encontro archivo para leer");
+            else Console.WriteLine("No se encontro la Oferta Academica");
             
 
 
@@ -43,6 +43,17 @@ namespace TP4
                 Console.WriteLine(datosCurso);
             }
 
+        }
+        public static void ofertaAcademica()
+        {
+            foreach (var curso in CursoMateriasOferta)
+            {
+                var arrayCurso = curso.Value.Split('-');
+                foreach (var datosMaterias in arrayCurso)
+                {
+                    Console.WriteLine($"Numero curso: {curso.Key} - Materia: {datosMaterias[0]} - {datosMaterias[1]} Docente: {datosMaterias[2]} Sede: {datosMaterias[8]}");
+                }
+            }
         }
     }
 }

@@ -7,36 +7,31 @@ namespace TP4
     {
         static void Main(string[] args)
         {
-            string ruta = @"";            
             Console.WriteLine("Sistema de Inscripción");
-            Console.WriteLine("Ingrese su numero de registro");
-            bool menu = false;
+            bool existe = false; //Si da true, es que existe el registro ingresado.
+            int registro; //Variable que me guarda el registro ingresado.
             do
             {
-                int registro = Helper.ValidarNumero();
-                if (File.Exists(ruta))
-                {
-                    Alumno alumnoIngresado = new Alumno(ruta ,registro);
-                    Console.WriteLine($"Alumno: {alumnoIngresado.Nombre} {alumnoIngresado.Apellido} Nro. Registro {alumnoIngresado.Registro}");
-                    menu = true;
+                Console.Clear();
+                Console.WriteLine("Ingrese su numero de registro");
+                registro = Helper.ValidarNumero();
+                existe = DatosAlumnos.validarAlumno(registro);
+            } while (!existe);
 
-                }
-                else Console.WriteLine("Base de datos no pudo ser leida.")
-;            } while (!menu);
-            Console.ReadKey();
-            Console.Clear();           
-            Console.WriteLine("1. Ver oferta academica. \n2. Inscribite \n9. Salir");
+            Alumno alumnoIngresado = new Alumno(registro);
             bool ciclo = false;
-            int numeromenu = Helper.validarNroMenu();
             do
             {
-                switch (menu)
+                Console.WriteLine("1. Ver oferta academica. \n2. Inscribite \n9. Salir");
+                int numeromenu = Helper.validarNroMenu();
+                switch (numeromenu)
                 {
                     case 1:
                         CursoMateria.ofertaAcademica(); //Me muestra todas las ofertas sin validar nada.
                         break;
 
                     case 2:
+                        alumnoIngresado.mostrarMateriasDisponibles();
                         alumnoIngresado.inscribir();
                         break;
 
