@@ -27,7 +27,7 @@ namespace TP4
             Console.Clear();           
             Console.WriteLine("1. Ver oferta academica. \n2. Inscribite \n9. Salir");
             bool ciclo = false;
-            int menu = Helper.validarNroMenu();
+            int numeromenu = Helper.validarNroMenu();
             do
             {
                 switch (menu)
