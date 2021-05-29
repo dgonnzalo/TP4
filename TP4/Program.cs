@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace TP4
 {
@@ -6,12 +7,24 @@ namespace TP4
     {
         static void Main(string[] args)
         {
+            string ruta = @"";            
             Console.WriteLine("Sistema de Inscripción");
             Console.WriteLine("Ingrese su numero de registro");
-            Alumno alumnoIngresado = Alumno.validarRegistro(); //Valida que el registro ingresado este en la lista, sino alerta que es incorrecto o que se contacte con administracion.
+            bool menu = false;
+            do
+            {
+                int registro = Helper.ValidarNumero();
+                if (File.Exists(ruta))
+                {
+                    Alumno alumnoIngresado = new Alumno(ruta ,registro);
+                    Console.WriteLine($"Alumno: {alumnoIngresado.Nombre} {alumnoIngresado.Apellido} Nro. Registro {alumnoIngresado.Registro}");
+                    menu = true;
+
+                }
+                else Console.WriteLine("Base de datos no pudo ser leida.")
+;            } while (!menu);
             Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine($"Alumno: {alumnoIngresado.Nombre} {alumnoIngresado.Apellido} Nro. Registro {alumnoIngresado.Registro}");
+            Console.Clear();           
             Console.WriteLine("1. Ver oferta academica. \n2. Inscribite \n9. Salir");
             bool ciclo = false;
             int menu = Helper.validarNroMenu();

@@ -7,7 +7,7 @@ namespace TP4
 {
     static class CursoMateria
     {
-        public static readonly Dictionary<int, string> CursoMateriasOferta = Dictionary<int, string>();
+        public static readonly Dictionary<int, string> CursoMateriasOferta;
 
         static CursoMateria()
         {
@@ -25,7 +25,7 @@ namespace TP4
                     string value = arraylinea[1]; //NrodeMateria-NombredeMateria-Docente-Horario-Inicio-Horario-Fin-Dia1-Dia2-Dia3-Sede
 
                     //var asiento = new CuentasContables(linea); //Constructor con un parametro, es leyendo el archivo
-                    CursoMateriasOferta.Add(key, value);
+                    CursoMateriasOferta.Add(key,value);
                 }
 
             }
