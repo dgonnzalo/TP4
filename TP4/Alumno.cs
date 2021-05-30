@@ -12,6 +12,7 @@ namespace TP4
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         private string MateriasAprobadas { get; set; }
+        private bool UltimasCuatroMaterias { get; set; } //Si es true, no necesita validar correlativas.
         public List<int> ListaMateriasAprobadas { get; set; }
 
 
@@ -54,6 +55,19 @@ namespace TP4
                 
             }
             else Console.WriteLine("Error en la base de datos. Revise la conexion");
+        }
+        public void inscribir()
+        {
+            Console.WriteLine("¿Estas cursando las últimas 4 materias?. 1. Si 2.No)");
+            int respuesta = Helper.ValidarNumero();
+            if (respuesta == 1)
+            {
+                //Proceso sin validar correlativas
+            }
+            else
+            {
+                //proceso validando correlativas
+            }
         }
 
     }

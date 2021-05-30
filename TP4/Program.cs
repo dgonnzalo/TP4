@@ -19,15 +19,15 @@ namespace TP4
                 switch (numeroMenuPrincipal)
                 {
                     case 1:
-                        //Me muestra todas las ofertas sin validar nada.
+
                         CursoMateria.ofertaAcademica();
                         Console.WriteLine("Toque cualquier tecla para volver al menu principal");
                         Console.ReadKey();
                         break;
 
                     case 2:
-                        alumnoIngresado.mostrarMateriasDisponibles();
-                        //alumnoIngresado.inscribir();
+                        //alumnoIngresado.mostrarMateriasDisponibles();
+                        alumnoIngresado.inscribir();
                         break;
 
                     case 9:

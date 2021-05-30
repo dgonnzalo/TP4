@@ -39,5 +39,9 @@ namespace TP4
             int opcion = Helper.validarNroMenu();
             return opcion;
         }
+        public static void inscribirAlumno()
+        {
+
+        }
     }
 }
