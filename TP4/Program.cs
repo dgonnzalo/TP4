@@ -7,37 +7,14 @@ namespace TP4
     {
         static void Main(string[] args)
         {
-            int registro;
-            bool cicloRegistro = false;
-            Console.WriteLine("Sistema de inscripción");
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("Favor de ingresar su registro");
-                registro = Helper.ValidarNumero();
-                if (!DatosAlumnos.validarAlumno(registro))//Si el registro del alumno no existe, preguntar que desea
-                {
-                    Console.WriteLine("Registro no encontrado. Presione 1 para intentar de nuevo. 9 para salir");
-                    int answer = Helper.ValidarNumero(); //Arreglar validaciones de opciones
-                    if (answer == 9) //rompo el ciclo porque quiere salir.
-                        cicloRegistro = true;
-                        
-                }
-                else
-                {
-                    Console.WriteLine("Registro ingresado correctamnete");
-                    cicloRegistro = true;
-                    Console.ReadKey();
-                }
-            } while (!cicloRegistro);
-
+            int registro = inscripcion.ingreso();
             Alumno alumnoIngresado = new Alumno(registro);
+            
             Console.Clear();
             bool menuPrincipal = false;
             do
             {
-                Console.WriteLine("1. Ver oferta academica. \n2. Inscribite \n9. Salir");
-                int numeroMenuPrincipal = Helper.ValidarNumero();
+                int numeroMenuPrincipal = inscripcion.mostrarMenu();                                
                 bool salir = false;
                 switch (numeroMenuPrincipal)
                 {
@@ -50,15 +27,15 @@ namespace TP4
 
                     case 2:
                         alumnoIngresado.mostrarMateriasDisponibles();
-                        alumnoIngresado.inscribir();
+                        //alumnoIngresado.inscribir();
                         break;
 
                     case 9:
                         salir = true;
                         menuPrincipal = true;
                         break;
-                } while (!salir);
-            } while (!menuPrincipal);
+                } while (!salir) ;
+            } while (!menuPrincipal);            
         }
     }
 }

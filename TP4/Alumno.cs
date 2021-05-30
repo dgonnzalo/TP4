@@ -19,69 +19,43 @@ namespace TP4
 
         public Alumno(int registro)
         {
-            string ruta = DatosAlumnos.dameRuta();
-            bool menuConstructor = false;
-            do
+            string ruta = DatosAlumnos.dameRuta();           
+            if (File.Exists(ruta))
             {
-                Console.Clear();                            
-                if (File.Exists(ruta))
+                StreamReader reader = new StreamReader(ruta);
+                while (!reader.EndOfStream)
                 {
-                    StreamReader reader = new StreamReader(ruta);                    
-                    while (!reader.EndOfStream)
-                    {                        
-                        string linea = reader.ReadLine(); //A partir de cada linea, tengo que construir un diccionario, que me permita validar que existe.                    
-                        var arraylinea = linea.Split(';');
-                        if (int.Parse(arraylinea[0]) == registro)
-                        {
-                            Alumno alumnoIngresado = new Alumno(arraylinea);
-                            Console.WriteLine($"Alumno: {alumnoIngresado.Nombre} {alumnoIngresado.Apellido} Nro. Registro {alumnoIngresado.Registro}");                           
-                            menuConstructor = true;                            
-                        }
-                        else continue;
-                    }
-                    
-                }
-                else Console.WriteLine("Error en la base de datos. Revise la conexion");
-            } while (!menuConstructor);
-        }
-        public Alumno(string[] arraylinea)
-        {
-            Registro = int.Parse(arraylinea[0]);
-            Apellido = arraylinea[2];
-            Nombre = arraylinea[1];
-            MateriasAprobadas = arraylinea[4]; //Separamos las materias por guion     
+                    string linea = reader.ReadLine(); //A partir de cada linea, tengo que construir un diccionario, que me permita validar que existe.                    
+                    var arraylinea = linea.Split(';');
+                    if (int.Parse(arraylinea[0]) == registro)
+                    {
+                        Registro = int.Parse(arraylinea[0]);
+                        Apellido = arraylinea[2];
+                        Nombre = arraylinea[1];
+                        MateriasAprobadas = arraylinea[4]; //Separamos las materias por guion     
 
-            var arrayLista = MateriasAprobadas.Split(','); //Agarro el string, lo separo por guion, y me queda una lista de las materias aprobadas.
-            foreach (var materiasSegunRegistro in arrayLista) //por cada materia, la agrego a la lista de materias aprobadas, ya parseadas.
-            {
-                int parseado;
-                if (!int.TryParse(materiasSegunRegistro, out parseado))
-                {
-                    continue;
-                }
-                else
-                {
-                    ListaMateriasAprobadas.Add(parseado);
+                        var arrayLista = MateriasAprobadas.Split(','); //Agarro el string, lo separo por guion, y me queda una lista de las materias aprobadas.
+                        foreach (var materiasSegunRegistro in arrayLista) //por cada materia, la agrego a la lista de materias aprobadas, ya parseadas.
+                        {
+                            int parseado;
+                            if (!int.TryParse(materiasSegunRegistro, out parseado))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                ListaMateriasAprobadas.Add(parseado);
+                            }
+
+                        }
+                    }
+                    else continue;
                 }
                 
             }
+            else Console.WriteLine("Error en la base de datos. Revise la conexion");
         }
-         
-        public void inscribir()
-        {
-           
-        }
-
-        public void mostrarMateriasDisponibles() //metodo que muestra las materias que puede cursar
-        {
-            
-            
-        }
-
-        
-
-       
 
     }
-    
 }
+    
