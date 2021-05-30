@@ -7,27 +7,45 @@ namespace TP4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Sistema de Inscripción");
-            bool existe = false; //Si da true, es que existe el registro ingresado.
-            int registro; //Variable que me guarda el registro ingresado.
+            int registro;
+            bool cicloRegistro = false;
+            Console.WriteLine("Sistema de inscripción");
             do
             {
                 Console.Clear();
-                Console.WriteLine("Ingrese su numero de registro");
+                Console.WriteLine("Favor de ingresar su registro");
                 registro = Helper.ValidarNumero();
-                existe = DatosAlumnos.validarAlumno(registro);
-            } while (!existe);
+                if (!DatosAlumnos.validarAlumno(registro))//Si el registro del alumno no existe, preguntar que desea
+                {
+                    Console.WriteLine("Registro no encontrado. Presione 1 para intentar de nuevo. 9 para salir");
+                    int answer = Helper.ValidarNumero(); //Arreglar validaciones de opciones
+                    if (answer == 9) //rompo el ciclo porque quiere salir.
+                        cicloRegistro = true;
+                        
+                }
+                else
+                {
+                    Console.WriteLine("Registro ingresado correctamnete");
+                    cicloRegistro = true;
+                    Console.ReadKey();
+                }
+            } while (!cicloRegistro);
 
             Alumno alumnoIngresado = new Alumno(registro);
-            bool ciclo = false;
+            Console.Clear();
+            bool menuPrincipal = false;
             do
             {
                 Console.WriteLine("1. Ver oferta academica. \n2. Inscribite \n9. Salir");
-                int numeromenu = Helper.validarNroMenu();
-                switch (numeromenu)
+                int numeroMenuPrincipal = Helper.ValidarNumero();
+                bool salir = false;
+                switch (numeroMenuPrincipal)
                 {
                     case 1:
-                        CursoMateria.ofertaAcademica(); //Me muestra todas las ofertas sin validar nada.
+                        //Me muestra todas las ofertas sin validar nada.
+                        CursoMateria.ofertaAcademica();
+                        Console.WriteLine("Toque cualquier tecla para volver al menu principal");
+                        Console.ReadKey();
                         break;
 
                     case 2:
@@ -36,12 +54,11 @@ namespace TP4
                         break;
 
                     case 9:
-                        ciclo = true;
+                        salir = true;
+                        menuPrincipal = true;
                         break;
-
-
-                }
-            } while (!ciclo);
+                } while (!salir);
+            } while (!menuPrincipal);
         }
     }
 }

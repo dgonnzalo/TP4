@@ -7,25 +7,21 @@ namespace TP4
 {
     static class CursoMateria
     {
-        public static readonly Dictionary<int, string> CursoMateriasOferta;
+        //      0               1             2             3        4          5        6
+        //Nro de Curso;Nro de Materia;Nombre de Materia;Docente;Dia y Horario;Sede; Correlativas(separadas por '-')  
+        public static readonly List<string> ofertaMaterias = new List<string>();
         const string rutaCursoMateria = @"C:\Users\mateo\source\repos\CAI\TP4\TP4\Materias.csv";
         static CursoMateria()
         {
             //Formato
-            //Codigo|Nombre|tipo
-            string ruta = @"";
-            if (File.Exists(ruta))
+            //Codigo|Nombre|tipo           
+            if (File.Exists(rutaCursoMateria))
             {
-                StreamReader reader = new StreamReader(ruta);
+                StreamReader reader = new StreamReader(rutaCursoMateria);
                 while (!reader.EndOfStream)
                 {
                     string linea = reader.ReadLine(); //A partir de cada linea, tengo que construir un diccionario, que me permita validar que existe.
-                    var arraylinea = linea.Split(';');
-                    int key = int.Parse(arraylinea[0]);
-                    string value = arraylinea[1]; //NrodeMateria-NombredeMateria-Docente-Horario-Inicio-Horario-Fin-Dia1-Dia2-Dia3-Sede
-
-                    //var asiento = new CuentasContables(linea); //Constructor con un parametro, es leyendo el archivo
-                    CursoMateriasOferta.Add(key,value);
+                    ofertaMaterias.Add(linea);
                 }
 
             }
@@ -34,26 +30,16 @@ namespace TP4
 
 
         }
-        public static void dameCurso(int curso)
-        {
-            var datos = CursoMateriasOferta[curso];
-            var linea = datos.Split('-');
-            foreach (var datosCurso in linea)
-            {
-                Console.WriteLine(datosCurso);
-            }
-
-        }
         public static void ofertaAcademica()
         {
-            foreach (var curso in CursoMateriasOferta)
+            foreach (var curso in ofertaMaterias)
             {
-                var arrayCurso = curso.Value.Split('-');
-                foreach (var datosMaterias in arrayCurso)
-                {
-                    Console.WriteLine($"Numero curso: {curso.Key} - Materia: {datosMaterias[0]} - {datosMaterias[1]} Docente: {datosMaterias[2]} Sede: {datosMaterias[8]}");
-                }
+                var arrayCursos = curso.Split(';');
+                Console.WriteLine("");
+                Console.WriteLine($"Curso numero:{arrayCursos[0]} Materia: {arrayCursos[2]} Profesor: {arrayCursos[3]} Dia y Horario:{arrayCursos[4]} en Sede:{arrayCursos[5]}");
+
             }
+
         }
     }
 }
